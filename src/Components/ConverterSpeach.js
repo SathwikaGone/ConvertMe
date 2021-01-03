@@ -20,10 +20,13 @@ export default function ConverterSpeach() {
   If you are interested in using our voices for non-personal use such as for Youtube videos, e-Learning, or other commercial or public purposes, please check out our Voice-Convert Commercial web application.`);
 
   const [playToogle, setplayToogle] = useState(true);
+  const [textStyle, settextStyle] = useState(true);
+
+  var synth = window.speechSynthesis;
+
   let handleSpeech = () => {
     setplayToogle(false);
 
-    var synth = window.speechSynthesis;
     var voices = [];
 
     voices = synth.getVoices();
@@ -48,44 +51,51 @@ export default function ConverterSpeach() {
       }
     });
     synth.speak(toSpeak);
+
+    toSpeak.onend = () => {
+      setplayToogle(true);
+    };
   };
 
-  let cancleSpeech = () => {
-    setplayToogle(true);
-    var synth = window.speechSynthesis;
-    synth.cancel();
-  };
-
-  let pauseSpeech = () => {
-    var synth = window.speechSynthesis;
-    synth.pause();
-  };
-
-  let resumeSpeech = () => {
-    var synth = window.speechSynthesis;
-    synth.resume();
-  };
   return (
     <div className="card">
       <div className="cardHeader">
         <Form.Check
           type="switch"
           id="custom-switch"
-          label="Dyslexic Font"
+          label="Italic"
           style={{
             float: "left",
           }}
+          defaultChecked
+          onClick={() => settextStyle((prev) => !prev)}
         />
         {playToogle ? (
           <MdPlayCircleFilled size={40} onClick={handleSpeech} />
         ) : (
           <React.Fragment>
-            <ImPlay2 size={30} onClick={resumeSpeech} />
+            <ImPlay2
+              size={30}
+              onClick={() => {
+                synth.resume();
+              }}
+            />
             {"  "}
 
-            <MdPauseCircleOutline size={36} onClick={pauseSpeech} />
+            <MdPauseCircleOutline
+              size={36}
+              onClick={() => {
+                synth.pause();
+              }}
+            />
             {"  "}
-            <ImStop size={30} onClick={cancleSpeech} />
+            <ImStop
+              size={30}
+              onClick={() => {
+                setplayToogle(true);
+                synth.cancel();
+              }}
+            />
           </React.Fragment>
         )}
 
@@ -114,7 +124,12 @@ export default function ConverterSpeach() {
       </div>
       <textarea
         value={text}
-        style={{ width: "100%", height: "100%", border: "none" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          border: "none",
+          fontStyle: textStyle ? "italic" : "normal",
+        }}
         onChange={(e) => settext(e.target.value)}
       />
     </div>
