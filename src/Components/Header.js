@@ -8,16 +8,31 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <Navbar bg="white" expand="lg" className="headerH">
-      <Navbar.Brand href="#home">Translate</Navbar.Brand>
+      <Navbar.Brand>Translate</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Text-Speech</Nav.Link>
-          <Nav.Link href="#link">Speech-Text</Nav.Link>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              marginRight: "5px",
+            }}
+          >
+            Text-Speech
+          </Link>
+          <Link
+            to="/Speech-Text"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Speech-Text
+          </Link>
           {
             // <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             //   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

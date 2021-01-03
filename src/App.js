@@ -1,14 +1,10 @@
 import "./App.css";
-import ConvertSpeech from "./Components/ConvertSpeech";
-import ConvertText from "./Components/ConvertText";
-import Header from "./Components/Header";
+import Router from "./router";
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <ConvertSpeech />
-      <ConvertText />
+      <Router />
     </div>
   );
 }

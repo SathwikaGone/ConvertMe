@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import "./Speech.css";
+import { FaPlay, FaStop, FaCopy } from "react-icons/fa";
+import { MdClose, MdContentCopy } from "react-icons/md";
 
 const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
 const mic = new SpeechRec();
@@ -57,7 +59,9 @@ export default function ConvertText() {
   return (
     <div>
       <div className="card">
-        {isListening ? <span>🎙️</span> : <span>🛑🎙️</span>}
+        {
+          //isListening ? <span>🎙️</span> : <span>🛑🎙️</span>
+        }
 
         <div className="cardHeader">
           <Form.Check
@@ -70,12 +74,48 @@ export default function ConvertText() {
             defaultChecked
             onClick={() => setNoteStyle((prev) => !prev)}
           />
-          <button disabled={!note} onClick={handleSaveNote}>
+          <MdClose
+            color="rgb(153, 153, 153)"
+            size={40}
+            style={{
+              float: "right",
+            }}
+            onClick={() => {
+              setNote("");
+            }}
+            title="Clear All"
+          />
+          <Button
+            variant="outline-secondary"
+            disabled={!note}
+            onClick={handleSaveNote}
+            style={{ float: "right" }}
+          >
+            {" "}
             Save Notes
-          </button>
-          <button onClick={() => setisListening((prev) => !prev)}>
-            Start/Stop
-          </button>
+          </Button>
+          <MdContentCopy
+            size={38}
+            color="rgb(153, 153, 153)"
+            style={{ float: "right" }}
+            onClick={() => {
+              navigator.clipboard.writeText(note);
+            }}
+            title="Copy"
+          />
+          {isListening ? (
+            <FaStop
+              size={30}
+              onClick={() => setisListening((prev) => !prev)}
+              title="Stop"
+            />
+          ) : (
+            <FaPlay
+              size={30}
+              onClick={() => setisListening((prev) => !prev)}
+              title="Start"
+            />
+          )}
         </div>
         <textarea
           value={note}
@@ -88,13 +128,20 @@ export default function ConvertText() {
           onChange={(e) => setNote(e.target.value)}
         />
       </div>
-
-      <h2>Notes</h2>
-      {savedNotes.map((item, index) => (
-        <div key={index} className="card">
-          {item}
+      {savedNotes.length > 0 ? (
+        <div>
+          <h4 style={{ marginTop: "5%" }}>
+            <i>Saved Notes</i>
+          </h4>
+          {savedNotes.map((item, index) => (
+            <div key={index} className="savedCards">
+              {item}
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        ""
+      )}
     </div>
   );
 }

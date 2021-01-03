@@ -58,7 +58,7 @@ export default function ConverterSpeach() {
 
   return (
     <div className="card">
-      <div className="cardHeader">
+      <div>
         <Form.Check
           type="switch"
           id="custom-switch"
@@ -70,7 +70,7 @@ export default function ConverterSpeach() {
           onClick={() => settextStyle((prev) => !prev)}
         />
         {playToogle ? (
-          <MdPlayCircleFilled size={40} onClick={handleSpeech} />
+          <MdPlayCircleFilled size={40} onClick={handleSpeech} title="Play" />
         ) : (
           <React.Fragment>
             <ImPlay2
@@ -78,6 +78,7 @@ export default function ConverterSpeach() {
               onClick={() => {
                 synth.resume();
               }}
+              title="Resume"
             />
             {"  "}
 
@@ -86,6 +87,7 @@ export default function ConverterSpeach() {
               onClick={() => {
                 synth.pause();
               }}
+              title="Pause"
             />
             {"  "}
             <ImStop
@@ -94,6 +96,7 @@ export default function ConverterSpeach() {
                 setplayToogle(true);
                 synth.cancel();
               }}
+              title="Stop"
             />
           </React.Fragment>
         )}
@@ -108,6 +111,7 @@ export default function ConverterSpeach() {
           onClick={() => {
             settext("");
           }}
+          title="Clear All"
         />
         <ImPaste
           color="rgb(153, 153, 153)"
@@ -119,6 +123,7 @@ export default function ConverterSpeach() {
           onClick={() => {
             navigator.clipboard.readText().then((val) => settext(val));
           }}
+          title="Paste"
         />
       </div>
       <textarea
