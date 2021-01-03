@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./Speech.css";
 import { Form } from "react-bootstrap";
-import { ImPaste, ImStop2, ImPause, ImStop, ImPlay2 } from "react-icons/im";
+import { ImPaste, ImStop, ImPlay2 } from "react-icons/im";
 import {
   MdClose,
   MdPlayCircleFilled,
-  MdStop,
   MdPauseCircleOutline,
 } from "react-icons/md";
-import { GrResume } from "react-icons/gr";
+
 export default function ConverterSpeach() {
   const [
     text,

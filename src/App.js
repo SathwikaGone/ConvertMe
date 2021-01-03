@@ -1,5 +1,5 @@
 import "./App.css";
-import ConverterSpeach from "./Components/ConverterSpeach";
+import ConverterSpeach from "./Components/ConverterSpeech";
 import Header from "./Components/Header";
 
 function App() {
