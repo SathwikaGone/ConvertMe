@@ -1,6 +1,6 @@
 .card {
   width: 70%;
-  height: 40%;
+  height: 40vh;
   margin: auto;
   margin-top: 5%;
   border-radius: 12px;
@@ -12,8 +12,13 @@ textarea:focus {
   outline: none;
 }
 
-.cardHeader {
-  /* display: flex;
-  flex-direction: row; */
-  /* display: "inline-block"; */
+.savedCards {
+  width: 70%;
+  height: fit-content;
+  margin: auto;
+  margin-top: 1%;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.55);
 }
