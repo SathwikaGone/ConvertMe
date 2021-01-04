@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import ConvertSpeech from "./Components/ConvertSpeech";
 import ConvertText from "./Components/ConvertText";
 import Header from "./Components/Header";

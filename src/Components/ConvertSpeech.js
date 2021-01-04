@@ -1,49 +1,39 @@
 import React, { useState } from "react";
 import "./Speech.css";
-import { Form } from "react-bootstrap";
+import { Form, DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 import { ImPaste, ImStop, ImPlay2 } from "react-icons/im";
 import {
   MdClose,
   MdPlayCircleFilled,
   MdPauseCircleOutline,
 } from "react-icons/md";
+import VOICEDATA from "./voiceData.json";
+var synth = window.speechSynthesis;
 
-export default function ConverterSpeach() {
+var voices = [];
+voices = synth.getVoices();
+let voicesData = VOICEDATA.data;
+
+export default function ConvesrterSpeach() {
   const [
     text,
     settext,
   ] = useState(`  Drag and drop your files, or type, paste, and edit text here.
   
-  Voice-Convert is a professional text to speech program that converts any written text into spoken words. The paid versions of Voice-Convert have many more features.
-  
-  If you are interested in using our voices for non-personal use such as for Youtube videos, e-Learning, or other commercial or public purposes, please check out our Voice-Convert Commercial web application.`);
+  ConvertMe is a text to speech program that converts any written text into spoken words. They can hear it in different voices by selecting one.`);
 
   const [playToogle, setplayToogle] = useState(true);
   const [textStyle, settextStyle] = useState(true);
-
-  var synth = window.speechSynthesis;
+  const [playVoice, setplayVoice] = useState(
+    "Microsoft David Desktop - English (United States)"
+  );
 
   let handleSpeech = () => {
     setplayToogle(false);
-
-    var voices = [];
-
-    voices = synth.getVoices();
-    // var selectedIndex = voiceList.selectedIndex < 0 ? 0 : voiceList.selectedIndex;
-    // voiceList.innerHTML = '';
-    // voices.forEach((voice)=>{
-    //     var listItem = document.createElement('option');
-    //     listItem.textContent = voice.name;
-    //     listItem.setAttribute('data-lang', voice.lang);
-    //     listItem.setAttribute('data-name', voice.name);
-    //     voiceList.appendChild(listItem);
-    // });
-
-    // voiceList.selectedIndex = selectedIndex;
-
     var toSpeak = new SpeechSynthesisUtterance(text);
     var selectedVoiceName =
-      " Microsoft David Desktop - English (United States)"; // voiceList.selectedOptions[0].getAttribute('data-name');
+      playVoice || " Microsoft David Desktop - English (United States)";
+
     voices.forEach((voice) => {
       if (voice.name === selectedVoiceName) {
         toSpeak.voice = voice;
@@ -125,6 +115,28 @@ export default function ConverterSpeach() {
           }}
           title="Paste"
         />
+
+        <DropdownButton
+          as={ButtonGroup}
+          style={{
+            float: "right",
+          }}
+          id={`dropdown-variants-Info`}
+          variant="Info"
+          title="Select Voice"
+        >
+          {voicesData.map((voice, index) => (
+            <Dropdown.Item
+              key={index}
+              eventKey={voice.name}
+              onSelect={(voice) => {
+                setplayVoice(voice);
+              }}
+            >
+              {voice.name}
+            </Dropdown.Item>
+          ))}
+        </DropdownButton>
       </div>
       <textarea
         value={text}
