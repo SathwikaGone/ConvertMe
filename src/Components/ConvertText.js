@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./Speech.css";
-import { FaPlay, FaStop, FaCopy } from "react-icons/fa";
+import { FaPlay, FaStop } from "react-icons/fa";
 import { MdClose, MdContentCopy } from "react-icons/md";
 
 const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -31,12 +31,12 @@ export default function ConvertText() {
     } else {
       mic.stop();
       mic.onend = () => {
-        console.log("stopped mic");
+        console.log("mic end");
       };
     }
 
     mic.onstart = () => {
-      console.log(" mic on");
+      console.log("mic on");
     };
 
     mic.onresult = (event) => {
@@ -46,6 +46,7 @@ export default function ConvertText() {
         .join("");
       console.log("transcript", transcript);
       setNote(transcript);
+
       mic.onerror = (event) => {
         console.log("error", event.error);
       };
@@ -59,10 +60,6 @@ export default function ConvertText() {
   return (
     <div>
       <div className="card">
-        {
-          //isListening ? <span>🎙️</span> : <span>🛑🎙️</span>
-        }
-
         <div className="cardHeader">
           <Form.Check
             type="switch"
